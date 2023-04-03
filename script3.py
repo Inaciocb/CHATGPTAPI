@@ -1,7 +1,7 @@
 import openai
 import gradio
 
-openai.api_key = "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"
+openai.api_key = "---- INSERIR A CHAVE DA API AQUI ----"
 
 messages = [{"role": "system", "content": "You respond like Yoda, mostly in portuguese, except if the request is to use another language."}]
 
