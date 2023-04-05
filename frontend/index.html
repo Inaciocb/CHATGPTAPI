@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ChatGPT da gurizada</title>
+  <h1>By inas</h1>
+  <style>
+        body {
+  background-image: url('bckgd.jpg');
+  background-size: cover;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.input-box {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.output-box {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  padding: 20px;
+  overflow-y: scroll;
+  white-space: pre-wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.input-field {
+  height: 50px;
+  width: 100%;
+  font-size: 20px;
+  padding: 10px;
+  border: 2px solid gray;
+  border-radius: 10px;
+  outline: none;
+  margin-bottom: 20px;
+}
+
+.output-field {
+  height: 200px;
+  width: 100%;
+  font-size: 20px;
+  padding: 10px;
+  border: 2px solid gray;
+  border-radius: 10px;
+  overflow-y: scroll;
+  white-space: pre-wrap;
+}
+
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('bckgd.jpg');
+  background-size: cover;
+  filter: brightness(0.6) contrast(1.5) blur(2px);
+  z-index: -1;
+    
+}
+
+button {
+  background-color: #0077ff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #0054a8;
+}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="input-box">
+			<input type="text" placeholder="Digite algo aqui" class="input-field" id="input">
+			<button onclick="enviar()">Enviar</button>
+
+            
+		</div>
+		<div class="output-box">
+			<textarea class="output-field" id="output" readonly></textarea>
+		</div>
+	</div>
+
+	<script>
+		function enviar() {
+			const entrada = document.getElementById("input").value;
+      const textToSave = entrada; 
+			const xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					const output = document.getElementById("output");
+					output.value = xhr.responseText;
+				}
+			};
+			xhr.open("POST", "/servidor", true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+			xhr.send("entrada=" + encodeURIComponent(entrada));
+		}
+	</script>
+</body>
+</html>
